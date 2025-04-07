@@ -1,9 +1,9 @@
-﻿using CaseApp;
-using CaseApp.Klasser;
+﻿using System; 
+using Core;
 
 namespace CaseApp.Repositories;
 
-public class UserRepository : IUserRepository 
+public class UserRepository //  : IUserRepository 
 {
     private readonly List<User> _users;
 

@@ -1,5 +1,7 @@
 using CaseApp.Repositories;
+using CaseAppBlazor.Service;
 using Microsoft.OpenApi.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
-
+builder.Services.AddSingleton<IStoreRepository, StoreRepository>();
+// builder.Services.AddSingleton<ILoginService, LoginServiceServerSide>(); // Hvis brugt på serveren
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

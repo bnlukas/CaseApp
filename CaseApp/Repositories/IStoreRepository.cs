@@ -1,6 +1,8 @@
-﻿namespace CaseApp.Repositories;
+﻿using System; 
+using Core;
+namespace CaseApp.Repositories;
 
-using CaseApp.Klasser;
+
 
 public interface IStoreRepository
 {
@@ -9,4 +11,5 @@ public interface IStoreRepository
     Store AddStore(Store store);
     void UpdateStore(Store store);
     void DeleteStore(int id);
+     
 }
