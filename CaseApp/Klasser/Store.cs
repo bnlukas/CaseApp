@@ -10,6 +10,6 @@ public class Store
     public string Color { get; set; }
     public string Brand { get; set; } = string.Empty;
     public string Description { get; set; } = String.Empty;
-    
+    public bool Udlånt { get; set; } = false;
     
 }
