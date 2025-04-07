@@ -1,14 +1,8 @@
-﻿using System.Net.Http.Json;
-using Blazored.LocalStorage;
-using CaseAppBlazor.Service.Login;
-using CaseApp.Klasser;
-
-
-namespace CaseAppBlazor.Service;
+﻿namespace CaseAppBlazor.Service.Login;
 
 public class LoginServiceServerSide : LoginServiceClientSide
 {
-    private HttpClient http;
+    private readonly HttpClient http;
     private string ServerUrl = "https://localhost:5284";
 
     public LoginServiceServerSide(ILocalStorageService ls, HttpClient http) : base(ls)
@@ -18,7 +12,14 @@ public class LoginServiceServerSide : LoginServiceClientSide
 
     protected override async Task<User?> Validate(string username, string password)
     {
-        User? res = await http.GetFromJsonAsync<User>($"{serverUrl}/api/login/validate?username={username}&password={password}");
-        return res;
+        try
+        {
+            User? res = await http.GetFromJsonAsync<User>($"{ServerUrl}/api/login/validate?username={username}&password={password}");
+            return res;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 }
