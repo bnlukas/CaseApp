@@ -1,14 +1,15 @@
-﻿using CaseAppBlazor.Service;
+﻿using CaseApp.Repositories;
+using CaseAppBlazor.Service;
 using Core;
 
 namespace CaseApp.Services;
 
 public class StoreService : IStoreService
 {
-    private readonly  _storeRepository;
+    private readonly StoreRepository  _storeRepository;
     private readonly ILoginService _loginService;
 
-    public StoreService(IStoreService storeRepository, ILoginService loginService)
+    public StoreService(StoreRepository storeRepository, ILoginService loginService)
     {
         _storeRepository = storeRepository;
         _loginService = loginService;
