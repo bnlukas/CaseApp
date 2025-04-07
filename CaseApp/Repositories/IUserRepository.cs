@@ -1,17 +1,15 @@
-﻿using CaseApp;
-using CaseApp.Klasser;
+﻿using CaseApp.Klasser;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CaseApp.Repositories
 {
     public interface IUserRepository
     {
-        public interface IInterface
-        {
-            IEnumerable<User> GetUsers();
-            User GetUser(int id);
-            void AddUser(User user);
-            void DeleteUser(int id);
-            void UpdateUser(User user);
-        }
+        Task<IEnumerable<User>> GetAll();
+        Task<User> GetUser(int id);
+        Task AddUser(User user);
+        Task DeleteUser(int id);
+        Task UpdateUser(User user);
     }
 }

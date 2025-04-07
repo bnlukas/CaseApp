@@ -1,4 +1,5 @@
 using CaseApp.Repositories;
+using CaseApp.Repositories.MongoDB;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepositoryMongoDB >();
+builder.Services.AddScoped<IStoreRepository, StoreRepositoryMongoDB>();
 
 var app = builder.Build();
 

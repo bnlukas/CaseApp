@@ -1,12 +1,15 @@
-﻿namespace CaseApp.Repositories;
+﻿using CaseApp.Klasser;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-using CaseApp.Klasser;
-
-public interface IStoreRepository
+namespace CaseApp.Repositories
 {
-    IEnumerable<Store> GetStores();
-    Store GetById(int id);
-    Store AddStore(Store store);
-    void UpdateStore(Store store);
-    void DeleteStore(int id);
+    public interface IStoreRepository
+    {
+        Task<IEnumerable<Store>> GetStores();       // Get all stores
+        Task<Store> GetById(int id);                // Get store by ID
+        Task AddStore(Store store);                 // Add new store
+        Task UpdateStore(Store store);              // Update existing store
+        Task DeleteStore(int id);                   // Delete store by ID
+    }
 }

@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "CaseApp\\CaseApp.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "CaseAppBlazor\\CaseAppBlazor.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

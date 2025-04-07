@@ -1,72 +1,62 @@
-﻿using CaseApp.Klasser;
+﻿using Microsoft.AspNetCore.Mvc;
+using CaseApp.Klasser;
 using CaseApp.Repositories;
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace CaseApp.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class StoreController : ControllerBase
+namespace CaseApp.Controllers
 {
-    private readonly IStoreRepository _storeRepository;
-
-    public StoreController(IStoreRepository storeRepository)
+    [ApiController]
+    [Route("api/store")]
+    public class StoreController : ControllerBase
     {
-        _storeRepository = storeRepository;
-    }
+        private readonly IStoreRepository storeRepo;
 
-    [HttpGet]
-    public ActionResult<IEnumerable<Store>> GetStores()
-    {
-        return Ok(_storeRepository.GetStores());
-    }
-
-    [HttpGet("{id}")]
-    public ActionResult<Store> GetStore(int id)
-    {
-        var store = _storeRepository.GetById(id);
-        if (store is null)
+        public StoreController(IStoreRepository storeRepo)
         {
-            return NotFound();
-        }
-        return Ok(store);
-    }
-
-    [HttpPost]
-    public ActionResult<Store> CreateStore(Store store)
-    {
-        var createdStore = _storeRepository.AddStore(store);
-        return CreatedAtAction(nameof(GetStore), new { id = createdStore.Id }, createdStore);
-    }
-
-    [HttpPut("{id}")]
-    public IActionResult UpdateStore(int id, Store store)
-    {
-        if (id != store.Id)
-        {
-            return BadRequest();
+            this.storeRepo = storeRepo;
         }
 
-        var existingStore = _storeRepository.GetById(id);
-        if (existingStore is null)
+        // GET: api/store
+        [HttpGet]
+        public async Task<IEnumerable<Store>> GetStores()
         {
-            return NotFound();
+            return await storeRepo.GetStores();
         }
 
-        _storeRepository.UpdateStore(store);
-        return NoContent();
-    }
-
-    [HttpDelete("{id}")]
-    public IActionResult DeleteStore(int id)
-    {
-        var store = _storeRepository.GetById(id);
-        if (store is null)
+        // GET: api/store/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Store>> GetById(int id)
         {
-            return NotFound();
+            var store = await storeRepo.GetById(id);
+            if (store == null)
+                return NotFound();
+
+            return Ok(store);
         }
 
-        _storeRepository.DeleteStore(id);
-        return NoContent();
+        // POST: api/store
+        [HttpPost]
+        public async Task<IActionResult> AddStore(Store store)
+        {
+            await storeRepo.AddStore(store);
+            return Ok();
+        }
+
+        // PUT: api/store
+        [HttpPut]
+        public async Task<IActionResult> UpdateStore(Store store)
+        {
+            await storeRepo.UpdateStore(store);
+            return Ok();
+        }
+
+        // DELETE: api/store/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStore(int id)
+        {
+            await storeRepo.DeleteStore(id);
+            return Ok();
+        }
     }
 }
