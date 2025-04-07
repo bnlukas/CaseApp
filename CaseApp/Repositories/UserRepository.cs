@@ -1,5 +1,5 @@
-﻿using CaseApp;
-using CaseApp.Klasser;
+﻿using System; 
+using Core;
 
 namespace CaseApp.Repositories;
 

@@ -1,5 +1,5 @@
-﻿using CaseApp.Repositories;
-namespace CaseApp.Klasser;
+﻿using System; 
+namespace Core;
 
 public class Store
 {
@@ -11,5 +11,6 @@ public class Store
     public string Brand { get; set; } = string.Empty;
     public string Description { get; set; } = String.Empty;
     public bool Udlånt { get; set; } = false;
+    public string? imageUrl { get; set; } = string.Empty;   
     
 }

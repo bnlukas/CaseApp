@@ -1,4 +1,4 @@
-﻿namespace CaseApp.Klasser;
+﻿namespace Core; 
 
 public class User
 {

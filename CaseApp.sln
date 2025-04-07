@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseApp", "CaseApp\CaseApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseAppBlazor", "CaseAppBlazor\CaseAppBlazor.csproj", "{B4EFF62C-1827-4F3F-86AC-493E5348E981}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{6521013D-230B-469D-B9BA-46F569E5E6AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B4EFF62C-1827-4F3F-86AC-493E5348E981}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4EFF62C-1827-4F3F-86AC-493E5348E981}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4EFF62C-1827-4F3F-86AC-493E5348E981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6521013D-230B-469D-B9BA-46F569E5E6AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6521013D-230B-469D-B9BA-46F569E5E6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6521013D-230B-469D-B9BA-46F569E5E6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6521013D-230B-469D-B9BA-46F569E5E6AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
