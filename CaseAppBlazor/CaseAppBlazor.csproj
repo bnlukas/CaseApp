@@ -1,20 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <OutputType>Exe</OutputType>
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
         <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.12"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.12" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Core\Core.csproj" />
-            <ProjectReference Include="..\CaseApp\CaseApp.csproj" />
+        <ProjectReference Include="..\Core\Core.csproj" />
+        <ProjectReference Include="..\CaseApp\CaseApp.csproj" />
     </ItemGroup>
 
 </Project>
