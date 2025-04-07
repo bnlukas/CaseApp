@@ -1,4 +1,7 @@
-﻿namespace CaseAppBlazor.Service.Login;
+﻿using Blazored.LocalStorage;
+using Core;
+
+namespace CaseAppBlazor.Service.Login;
 
 public class LoginServiceClientSide : ILoginService
 {

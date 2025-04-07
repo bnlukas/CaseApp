@@ -1,5 +1,6 @@
 ﻿using CaseApp; 
 using CaseApp.Repositories;
+using Core;
 using Microsoft.AspNetCore.Mvc;
 namespace CaseApp.Controllers;
 

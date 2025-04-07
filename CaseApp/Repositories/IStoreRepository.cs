@@ -2,7 +2,7 @@
 using Core;
 namespace CaseApp.Repositories;
 
-using CaseApp.Klasser;
+
 
 public interface IStoreRepository
 {
