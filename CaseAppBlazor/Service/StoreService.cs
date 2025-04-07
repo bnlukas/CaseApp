@@ -2,7 +2,7 @@
 using Core;
 
 namespace CaseApp.Services;
-
+/*
 public class StoreService : IStoreService
 {
     private readonly  _storeRepository;
@@ -60,3 +60,4 @@ public class StoreService : IStoreService
         await Task.CompletedTask;
     }
 }
+*/
