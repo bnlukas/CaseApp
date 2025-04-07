@@ -1,0 +1,170 @@
+﻿@page "/HomePage"
+@inject IStoreService StoreService
+@inject ILoginService LoginService
+@inject NavigationManager NavMan
+@using CaseApp.Services
+@using CaseAppBlazor.Service
+@using Core
+
+<PageTitle>Store</PageTitle>
+
+<h1>Store Items</h1>
+
+@if (stores == null || currentUser == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h3>Welcome, @currentUser.Username!</h3>
+
+    <!-- Sektion for at vise alle produkter -->
+    <h4>All Items</h4>
+    <button class="btn-primary" @onclick="NavigateToAdd">Add Item</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Image</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in stores)
+        {
+            <tr class="itemRow">
+                <td>
+                    <h2>@item.Brand - @item.Category</h2><br />
+                    Price: @item.Price kr.<br />
+                    Color: @item.Color<br />
+                    Description: @item.Description
+                </td>
+                <td><img class="itemImg" src="@item.ImageUrl" width="200px" alt="Item image" /></td>
+                <td>@(item.Owner?.Username ?? "No owner")</td>
+                <td>
+                    @if (item.Udlånt)
+                    {
+                        <span>Rented by @(item.RentedBy?.Username ?? "Unknown")</span>
+                    }
+                    else
+                    {
+                        <span>Available</span>
+                    }
+                </td>
+                <td>
+                    @if (!item.Udlånt && item.Owner?.Id != currentUser.Id)
+                    {
+                        <button class="btn-primary" @onclick="() => RentItem(item)">Rent</button>
+                    }
+                    else if (item.Udlånt && item.RentedBy?.Id == currentUser.Id)
+                    {
+                        <button class="btn-primary" @onclick="() => ReturnItem(item)">Return</button>
+                    }
+                    @if (item.Owner?.Id == currentUser.Id)
+                    {
+                        <button class="btn-danger" @onclick="() => DeleteItem(item)">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <!-- Sektion for at vise brugerens lejede items -->
+    <h4>Your Rented Items</h4>
+    @if (rentedItems == null || rentedItems.Length == 0)
+    {
+        <p>You haven't rented any items yet.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Image</th>
+                <th>Owner</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in rentedItems)
+            {
+                <tr class="itemRow">
+                    <td>
+                        <h2>@item.Brand - @item.Category</h2><br />
+                        Price: @item.Price kr.
+                    </td>
+                    <td><img class="itemImg" src="@item.ImageUrl" width="200px" alt="Item image" /></td>
+                    <td>@(item.Owner?.Username ?? "No owner")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+    private Store[]? stores;
+    private Store[]? rentedItems;
+    private User? currentUser;
+
+    // Initialiserer siden ved at hente alle items og den loggede bruger
+    protected override async Task OnInitializedAsync()
+    {
+        currentUser = await LoginService.GetUserLoggedIn();
+        if (currentUser == null)
+        {
+            NavMan.NavigateTo("/login"); // Omdiriger til login, hvis brugeren ikke er logget ind
+            return;
+        }
+        await LoadAll();
+    }
+
+    // Henter alle items og brugerens lejede items
+    private async Task LoadAll()
+    {
+        stores = await StoreService.GetAllAsync();
+        if (currentUser != null)
+        {
+            rentedItems = await StoreService.GetRentedByUserAsync(currentUser);
+        }
+    }
+
+    // Navigerer til en side for at tilføje et nyt item
+    private void NavigateToAdd()
+    {
+        NavMan.NavigateTo("additem");
+    }
+
+    // Sletter et item (kun ejeren kan slette)
+    private async Task DeleteItem(Store item)
+    {
+        if (item.Owner?.Id == currentUser?.Id)
+        {
+            await StoreService.DeleteByIdAsync(item.Id);
+            await LoadAll();
+        }
+    }
+
+    // Udlåner et item til den loggede bruger
+    private async Task RentItem(Store item)
+    {
+        if (currentUser != null && !item.Udlånt && item.Owner?.Id != currentUser.Id)
+        {
+            await StoreService.RentItemAsync(item.Id, currentUser);
+            await LoadAll();
+        }
+    }
+
+    // Returnerer et item
+    private async Task ReturnItem(Store item)
+    {
+        if (currentUser != null && item.Udlånt && item.RentedBy?.Id == currentUser.Id)
+        {
+            await StoreService.ReturnItemAsync(item.Id);
+            await LoadAll();
+        }
+    }
+}

@@ -7,7 +7,7 @@ namespace CaseAppBlazor.Service.Login;
 public class LoginServiceServerSide : LoginServiceClientSide
 {
     private readonly HttpClient http;
-    private string ServerUrl = "https://localhost:5284";
+    private string ServerUrl = "https://localhost:5286";
 
     public LoginServiceServerSide(ILocalStorageService ls, HttpClient http) : base(ls)
     {
